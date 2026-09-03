@@ -12,47 +12,47 @@ namespace Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientesController : ControllerBase
+    public class LocalidadesController : ControllerBase
     {
         private readonly InventarioContext _context;
 
-        public ClientesController(InventarioContext context)
+        public LocalidadesController(InventarioContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clientes
+        // GET: api/Localidades
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cliente>>> GetClientes()
+        public async Task<ActionResult<IEnumerable<Localidad>>> GetLocalidades()
         {
-            return await _context.Clientes.ToListAsync();
+            return await _context.Localidades.ToListAsync();
         }
 
-        // GET: api/Clientes/5
+        // GET: api/Localidades/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Cliente>> GetCliente(int id)
+        public async Task<ActionResult<Localidad>> GetLocalidad(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-
-            if (cliente == null)
+            var localidad = await _context.Localidades.FindAsync(id);
+    
+            if (localidad == null)
             {
                 return NotFound();
             }
 
-            return cliente;
+            return localidad;
         }
 
-        // PUT: api/Clientes/5
+        // PUT: api/Localidades/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCliente(int id, Cliente cliente)
+        public async Task<IActionResult> PutLocalidad(int id, Localidad localidad)
         {
-            if (id != cliente.id)
+            if (id != localidad.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(cliente).State = EntityState.Modified;
+            _context.Entry(localidad).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Backend.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClienteExists(id))
+                if (!LocalidadExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Backend.Controllers
             return NoContent();
         }
 
-        // POST: api/Clientes
+        // POST: api/Localidades
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Cliente>> PostCliente(Cliente cliente)
+        public async Task<ActionResult<Localidad>> PostLocalidad(Localidad localidad            )
         {
-            _context.Clientes.Add(cliente);
+            _context.Localidades.Add(localidad);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCliente", new { id = cliente.id }, cliente);
+            return CreatedAtAction("GetLocalidad", new { id = localidad.Id }, localidad);
         }
 
-        // DELETE: api/Clientes/5
+        // DELETE: api/Localidades/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCliente(int id)
+        public async Task<IActionResult> DeleteLocalidad(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente == null)
+            var localidad = await _context.Localidades.FindAsync(id);
+            if (localidad == null)
             {
                 return NotFound();
             }
-            cliente.IsDeleted = true;
-            _context.Clientes.Update(cliente);
+            localidad.IsDeleted = true;
+            _context.Localidades.Update(localidad);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool ClienteExists(int id)
+        private bool LocalidadExists(int id)
         {
-            return _context.Clientes.Any(e => e.id == id);
+            return _context.Localidades.Any(e => e.Id == id);
         }
     }
 }

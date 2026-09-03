@@ -32,9 +32,9 @@ var cadenaConexion = configuration.GetConnectionString("postgresRemote");
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cliente>().HasData(
-                new Cliente { id = 1, Firstname = "Enzo", Lastname = "Cabrera", Dni = "67676767676767", Address = "Calle AURA" },
-                new Cliente { id = 2, Firstname = "María", Lastname = "González", Dni = "87654321", Address = "Avenida Siempre Viva 456" },
-                new Cliente { id = 3, Firstname = "Pedro", Lastname = "López", Dni = "11223344", Address = "Callejón del Beso 789" }
+                new Cliente { id = 1, Firstname = "Enzo", Lastname = "Cabrera", Dni = "67676767676767", Address = "Calle AURA", LocalidadId = 1 },
+                new Cliente { id = 2, Firstname = "María", Lastname = "González", Dni = "87654321", Address = "Avenida Siempre Viva 456", LocalidadId = 2 },
+                new Cliente { id = 3, Firstname = "Pedro", Lastname = "López", Dni = "11223344", Address = "Callejón del Beso 789", LocalidadId = 3 }
             );
 
             // creamos datos semilla para la tabla Localidades
