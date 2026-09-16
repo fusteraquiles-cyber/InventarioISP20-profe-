@@ -24,10 +24,10 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build Backend/Backend.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish  Backend/Backend.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -54,6 +54,13 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_F83DD8F45AF84D28B43A3D68F4DF04D1 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C86DACD51DBB4F4CA44C5736108814DA }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A872609BF42E429B9A082DAC4C2910F7 }}
+
+      - name: Configurar cadena de conexión PostgreSQL
+        run: |
+          az webapp config appsettings set \
+            --resource-group api-inventario-aquiles_group \
+            --name api-inventario-aquiles \
+            --settings "ConnectionStrings__postgresRemote=${{ secrets.POSTGREREMOTE }}"
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
